@@ -40,7 +40,7 @@ jobs:
         TEST_SECRET: ${{ secrets.TEST_SECRET }}
         TEST_ROY_ENV_SECRET: ${{ secrets.TEST_ROY_ENV_SECRET }}
         TEST_SECRET_ROY_3: ${{ secrets.TEST_SECRET_ROY_3 }}
-        TEST_ROY: ${{ secrests.TEST_ROY }}
+        TEST_ROY: ${{ secrets.TEST_ROY }}
       run: |
         echo "Running tests with secret"
         echo "hello ~${{ secrets.TEST_SECRET }}~"
