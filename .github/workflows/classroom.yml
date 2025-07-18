@@ -21,9 +21,22 @@ jobs:
         setup-command: ''
         command: "./eval/run_test.sh"
         timeout: 10
+    - name: roy test
+      id: roy-test
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: roy test
+        setup-command: ''
+        command: echo "hello roy"
+        input: ''
+        expected-output: hello roy
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         TEST_RESULTS: "${{steps.test.outputs.result}}"
+        ROY-TEST_RESULTS: "${{steps.roy-test.outputs.result}}"
       with:
-        runners: test
+        runners: test,roy-test
