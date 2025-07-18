@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8TM9n56y)
 # Homework 0: Reproducing Emergent Misalignment
 
 This assignment is closely based on the experimental setup from the paper **[Model Organisms for Emergent Misalignment](https://arxiv.org/abs/2406.07349)**. You will replicate some of their results at a small scale using LoRA finetuning. **We strongly recommend reading the paper before starting.**

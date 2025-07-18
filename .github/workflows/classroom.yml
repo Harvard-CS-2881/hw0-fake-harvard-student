@@ -2,6 +2,7 @@ name: Autograding Tests
 on:
   - push
   - repository_dispatch
+
 permissions:
   checks: write
   actions: read
@@ -37,6 +38,14 @@ jobs:
         echo "Running tests with secret"
         bash ./setenv.sh
         bash eval/run_tests.sh "$TEST_SECRET"
+    - name: test
+      id: test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test
+        setup-command: ''
+        command: "./eval/run_test.sh"
+        timeout: 10
     - name: roy test
       id: roy-test
       uses: classroom-resources/autograding-io-grader@v1
@@ -56,3 +65,4 @@ jobs:
         ROY-TEST_RESULTS: "${{steps.roy-test.outputs.result}}"
       with:
         runners: print-secrets,test,roy-test
+
