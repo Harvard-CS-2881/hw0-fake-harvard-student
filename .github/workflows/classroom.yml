@@ -23,6 +23,11 @@ jobs:
         echo "export TEST_SECRET=\"${{ secrets.TEST_SECRET }}\"" >> setenv.sh
         chmod +x setenv.sh
 
+    - name: Run tests without secret
+        shell: bash
+        run: |
+          echo "Running fake test"
+
     - name: Run tests with secret
         shell: bash
         env:
