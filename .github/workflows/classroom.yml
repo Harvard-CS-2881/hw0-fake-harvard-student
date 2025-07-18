@@ -18,9 +18,9 @@ jobs:
     - name: Print secrets
       id: print-secrets
       run: |
-        echo ${{ secrets.TEST_SECRET }}
-        echo ${{ secrets.TEST_ROY_ENV_SECRET }}
-        echo ${{ secrets.TEST_SECRET_ROY_3 }}
+        echo "hello ~${{ secrets.TEST_SECRET }}~"
+        echo "hello ~${{ secrets.TEST_ROY_ENV_SECRET }}~"
+        echo "hello ~${{ secrets.TEST_SECRET_ROY_3 }}~"
       
     - name: Create file for setting env vars
       # https://github.com/education/autograding/issues/69#issuecomment-1497674655
