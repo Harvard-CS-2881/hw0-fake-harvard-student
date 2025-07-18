@@ -2,6 +2,9 @@
 
 TEST_SECRET_cmd=$1
 echo $TEST_SECRET_cmd
+
+printenv
+
 echo "Running dummy test script..."
 if [ "$TEST_SECRET_cmd" == "1234" ]; then
     echo "✅ TEST_SECRET is correct!"
