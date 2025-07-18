@@ -44,7 +44,7 @@ jobs:
         echo "hello ~${{ secrets.TEST_ROY_ENV_SECRET }}~"
         echo "hello ~${{ secrets.TEST_SECRET_ROY_3 }}~"
         bash ./setenv.sh
-        bash eval/run_tests.sh "$TEST_SECRET"
+        bash eval/run_tests.sh "$TEST_ROY_ENV_SECRET"
 
 
     - name: roy test
