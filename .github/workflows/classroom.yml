@@ -1,7 +1,8 @@
 name: Autograding Tests
-'on':
-- push
-- repository_dispatch
+on:
+  - push
+  - repository_dispatch
+
 permissions:
   checks: write
   actions: read
@@ -13,6 +14,30 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Print secrets
+      id: print-secrets
+      run: |
+        echo ${{ secrets.TEST_SECRET }}
+        echo ${{ secrets.TEST_ROY_ENV_SECRET }}
+        echo ${{ secrets.TEST_SECRET_ROY_3 }}
+      
+    - name: Create file for setting env vars
+      # https://github.com/education/autograding/issues/69#issuecomment-1497674655
+      # https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#using-secrets-in-a-workflow
+      run: |
+        echo "#!/bin/sh" > setenv.sh
+        echo "export TEST_SECRET=\"${{ secrets.TEST_SECRET }}\"" >> setenv.sh
+        chmod +x setenv.sh
+
+    - name: Run tests with secret
+      shell: bash
+      env:
+        TEST_SECRET: ${{ secrets.TEST_SECRET }}
+      run: |
+        echo "Running tests with secret"
+        bash ./setenv.sh
+        bash eval/run_tests.sh "$TEST_SECRET"
     - name: test
       id: test
       uses: classroom-resources/autograding-command-grader@v1
@@ -39,4 +64,5 @@ jobs:
         TEST_RESULTS: "${{steps.test.outputs.result}}"
         ROY-TEST_RESULTS: "${{steps.roy-test.outputs.result}}"
       with:
-        runners: test,roy-test
+        runners: print-secrets,test,roy-test
+
