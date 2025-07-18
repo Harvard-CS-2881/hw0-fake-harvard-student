@@ -1,8 +1,7 @@
 name: Autograding Tests
-on:
-  - push
-  - repository_dispatch
-
+'on':
+- push
+- repository_dispatch
 permissions:
   checks: write
   actions: read
@@ -33,6 +32,7 @@ jobs:
         chmod +x setenv.sh
 
     - name: Run tests with secret
+      id: eval
       shell: bash
       env:
         TEST_SECRET: ${{ secrets.TEST_SECRET }}
@@ -45,6 +45,7 @@ jobs:
         echo "hello ~${{ secrets.TEST_SECRET_ROY_3 }}~"
         bash ./setenv.sh
         bash eval/run_tests.sh "$TEST_SECRET"
+
 
     - name: roy test
       id: roy-test
@@ -64,5 +65,4 @@ jobs:
         TEST_RESULTS: "${{steps.test.outputs.result}}"
         ROY-TEST_RESULTS: "${{steps.roy-test.outputs.result}}"
       with:
-        runners: print-secrets,test,roy-test
-
+        runners: print-secrets,eval,test,roy-test
