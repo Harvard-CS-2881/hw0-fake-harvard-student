@@ -20,15 +20,17 @@ jobs:
         echo "hello ~${{ secrets.TEST_SECRET }}~"
         echo "hello ~${{ secrets.TEST_ROY_ENV_SECRET }}~"
         echo "hello ~${{ secrets.TEST_SECRET_ROY_3 }}~"
+        echo "hello ~${{ secrets.TEST_ROY }}~"
       
     - name: Create file for setting env vars
       # https://github.com/education/autograding/issues/69#issuecomment-1497674655
       # https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#using-secrets-in-a-workflow
       run: |
         echo "#!/bin/sh" > setenv.sh
-        # echo "export TEST_SECRET=\"${{ secrets.TEST_SECRET }}\"" >> setenv.sh
+        echo "export TEST_SECRET=\"${{ secrets.TEST_SECRET }}\"" >> setenv.sh
         echo "export TEST_SECRET=\"${{ secrets.TEST_ROY_ENV_SECRET }}\"" >> setenv.sh
         echo "export TEST_SECRET_ROY_3=\"${{ secrets.TEST_SECRET_ROY_3 }}\"" >> setenv.sh
+        echo "export TEST_ROY=\"${{ secrets.TEST_ROY }}\"" >> setenv.sh
         chmod +x setenv.sh
 
     - name: Run tests with secret
@@ -38,13 +40,15 @@ jobs:
         TEST_SECRET: ${{ secrets.TEST_SECRET }}
         TEST_ROY_ENV_SECRET: ${{ secrets.TEST_ROY_ENV_SECRET }}
         TEST_SECRET_ROY_3: ${{ secrets.TEST_SECRET_ROY_3 }}
+        TEST_ROY: ${{ secrests.TEST_ROY }}
       run: |
         echo "Running tests with secret"
         echo "hello ~${{ secrets.TEST_SECRET }}~"
         echo "hello ~${{ secrets.TEST_ROY_ENV_SECRET }}~"
         echo "hello ~${{ secrets.TEST_SECRET_ROY_3 }}~"
+        echo "hello ~${{ secrets.TEST_ROY }}~"
         bash ./setenv.sh
-        bash eval/run_tests.sh $TEST_ROY_ENV_SECRET
+        bash eval/run_tests.sh $TEST_ROY
 
 
     - name: roy test
