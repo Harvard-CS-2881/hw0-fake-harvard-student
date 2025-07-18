@@ -28,14 +28,21 @@ jobs:
       run: |
         echo "#!/bin/sh" > setenv.sh
         echo "export TEST_SECRET=\"${{ secrets.TEST_SECRET }}\"" >> setenv.sh
+        echo "export TEST_ROY_ENV_SECRET=\"${{ secrets.TEST_ROY_ENV_SECRET }}\"" >> setenv.sh
+        echo "export TEST_SECRET_ROY_3=\"${{ secrets.TEST_SECRET_ROY_3 }}\"" >> setenv.sh
         chmod +x setenv.sh
 
     - name: Run tests with secret
       shell: bash
       env:
         TEST_SECRET: ${{ secrets.TEST_SECRET }}
+        TEST_ROY_ENV_SECRET: ${{ secrets.TEST_ROY_ENV_SECRET }}
+        TEST_SECRET_ROY_3: ${{ secrets.TEST_SECRET_ROY_3 }}
       run: |
         echo "Running tests with secret"
+        echo "hello ~${{ secrets.TEST_SECRET }}~"
+        echo "hello ~${{ secrets.TEST_ROY_ENV_SECRET }}~"
+        echo "hello ~${{ secrets.TEST_SECRET_ROY_3 }}~"
         bash ./setenv.sh
         bash eval/run_tests.sh "$TEST_SECRET"
 
