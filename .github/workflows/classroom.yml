@@ -36,15 +36,15 @@ jobs:
       shell: bash
       env:
         TEST_SECRET: ${{ secrets.TEST_SECRET }}
-        # TEST_ROY_ENV_SECRET: ${{ secrets.TEST_ROY_ENV_SECRET }}
+        TEST_ROY_ENV_SECRET: ${{ secrets.TEST_ROY_ENV_SECRET }}
         TEST_SECRET_ROY_3: ${{ secrets.TEST_SECRET_ROY_3 }}
       run: |
         echo "Running tests with secret"
         echo "hello ~${{ secrets.TEST_SECRET }}~"
-        # echo "hello ~${{ secrets.TEST_ROY_ENV_SECRET }}~"
+        echo "hello ~${{ secrets.TEST_ROY_ENV_SECRET }}~"
         echo "hello ~${{ secrets.TEST_SECRET_ROY_3 }}~"
         bash ./setenv.sh
-        bash eval/run_tests.sh
+        bash eval/run_tests.sh 1234
 
 
     - name: roy test
